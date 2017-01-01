@@ -1,6 +1,6 @@
 # Night Owls Detector
 
-The script gathers information from [devman.org API](http://devman.org/api/challenges/solution_attempts] about users that send his project to revision from 00:00 till 04:00. Then outputs username and timetable with his attempts.
+The script gathers information from [DEVMAN.org API](http://devman.org/api/challenges/solution_attempts) about users that send his project to revision from 00:00 till 04:00. Then outputs username and timetable with his attempts.
 
 Usage:
 
