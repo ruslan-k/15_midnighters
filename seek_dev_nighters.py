@@ -29,10 +29,10 @@ def load_attempts(num_pages):
                 }
 
 
-def get_midnighters(users_data):
+def get_midnighters(users_attempts_data):
     print("List of midnighters:")
     midnighters = {}
-    for user_data in users_data:
+    for user_data in users_attempts_data:
         username = user_data['username']
         user_timezone = pytz.timezone(user_data['timezone'])
         attempt_time = datetime.datetime.fromtimestamp(user_data['timestamp'], user_timezone)
@@ -54,6 +54,6 @@ def print_midnighters(midnighters):
 
 if __name__ == '__main__':
     num_pages = get_number_of_pages()
-    users_data = load_attempts(num_pages)
-    midnighters = get_midnighters(users_data)
+    users_attempts_data = load_attempts(num_pages)
+    midnighters = get_midnighters(users_attempts_data)
     print_midnighters(midnighters)
