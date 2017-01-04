@@ -30,7 +30,6 @@ def get_users_with_timestamp(num_pages):
 
 
 def get_midnighters(users_attempts_data):
-    print("List of midnighters:")
     midnighters = {}
     for user_data in users_attempts_data:
         username = user_data['username']
@@ -44,6 +43,7 @@ def get_midnighters(users_attempts_data):
     return midnighters
 
 def print_midnighters(midnighters):
+    print("List of midnighters:")
     for username, attempts in midnighters.items():
         attempts_formatted = [attempt.strftime("%H:%M:%S %d.%m.%y") for attempt in attempts]
         print("Username: '{username}', Attempts:\n{attempts}\n".format(
