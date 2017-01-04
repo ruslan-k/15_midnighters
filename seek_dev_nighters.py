@@ -15,7 +15,7 @@ def get_number_of_pages():
     return num_pages
 
 
-def load_attempts(num_pages):
+def get_users_with_timestamp(num_pages):
     for page in range(1, num_pages + 1):
         request_params = {"page": page}
         request = requests.get(URL, params=request_params)
@@ -54,6 +54,6 @@ def print_midnighters(midnighters):
 
 if __name__ == '__main__':
     num_pages = get_number_of_pages()
-    users_attempts_data = load_attempts(num_pages)
+    users_attempts_data = get_users_with_timestamp(num_pages)
     midnighters = get_midnighters(users_attempts_data)
     print_midnighters(midnighters)
