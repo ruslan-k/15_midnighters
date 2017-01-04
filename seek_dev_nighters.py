@@ -1,6 +1,6 @@
 import datetime
 import json
-
+from collections import defaultdict
 import pytz
 import requests
 
@@ -30,16 +30,13 @@ def get_users_with_timestamp(num_pages):
 
 
 def get_midnighters(users_attempts_data):
-    midnighters = {}
+    midnighters = defaultdict(list)
     for user_data in users_attempts_data:
         username = user_data['username']
         user_timezone = pytz.timezone(user_data['timezone'])
         attempt_time = datetime.datetime.fromtimestamp(user_data['timestamp'], user_timezone)
         if START_TIME <= attempt_time.time() <= END_TIME:
-            if username not in midnighters:
-                midnighters[username] = [attempt_time]
-            else:
-                midnighters[username].append(attempt_time)
+            midnighters[username].append(attempt_time)
     return midnighters
 
 def print_midnighters(midnighters):
