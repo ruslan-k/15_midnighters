@@ -1,6 +1,7 @@
 import datetime
 import json
 from collections import defaultdict
+
 import pytz
 import requests
 
@@ -15,11 +16,16 @@ def get_number_of_pages():
     return num_pages
 
 
-def get_users_with_timestamp(num_pages):
+def load_data(page):
+    request_params = {"page": page}
+    request = requests.get(URL, params=request_params)
+    records = json.loads(request.text)['records']
+    return records
+
+
+def get_all_users_records_with_timestamp_data(num_pages):
     for page in range(1, num_pages + 1):
-        request_params = {"page": page}
-        request = requests.get(URL, params=request_params)
-        records = json.loads(request.text)['records']
+        records = load_data(page)
         for record in records:
             if record['timestamp']:
                 yield {
@@ -39,6 +45,7 @@ def get_midnighters(users_attempts_data):
             midnighters[username].append(attempt_time)
     return midnighters
 
+
 def print_midnighters(midnighters):
     print("List of midnighters:")
     for username, attempts in midnighters.items():
@@ -51,6 +58,6 @@ def print_midnighters(midnighters):
 
 if __name__ == '__main__':
     num_pages = get_number_of_pages()
-    users_attempts_data = get_users_with_timestamp(num_pages)
+    users_attempts_data = get_all_users_records_with_timestamp_data(num_pages)
     midnighters = get_midnighters(users_attempts_data)
     print_midnighters(midnighters)
