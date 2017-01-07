@@ -23,16 +23,19 @@ def load_data(page):
     return records
 
 
-def get_users_attempts(num_pages):
+def get_attempts_of_users(num_pages):
     for page in range(1, num_pages + 1):
         records = load_data(page)
         for record in records:
-            if record['timestamp']:
-                yield {
-                    'username': record['username'],
-                    'timestamp': float(record['timestamp']),
-                    'timezone': record['timezone'],
-                }
+            yield {
+                'username': record['username'],
+                'timestamp': record['timestamp'],
+                'timezone': record['timezone'],
+            }
+
+
+def filter_attempts_with_timestamp(users_attempts_data):
+    return list(filter(lambda user_attempt: user_attempt['timestamp'], users_attempts_data))
 
 
 def get_midnighters(users_attempts_data):
@@ -58,6 +61,7 @@ def print_midnighters(midnighters):
 
 if __name__ == '__main__':
     num_pages = get_number_of_pages()
-    users_attempts_data = get_users_attempts(num_pages)
-    midnighters = get_midnighters(users_attempts_data)
+    attempts_of_users = get_attempts_of_users(num_pages)
+    filered_attempts_with_timestamp = filter_attempts_with_timestamp(attempts_of_users)
+    midnighters = get_midnighters(filered_attempts_with_timestamp)
     print_midnighters(midnighters)
