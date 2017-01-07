@@ -34,16 +34,16 @@ def get_attempts_of_users(num_pages):
             }
 
 
-def filter_attempts_with_timestamp(users_attempts_data):
-    return list(filter(lambda user_attempt: user_attempt['timestamp'], users_attempts_data))
+def filter_attempts_with_timestamp(attempts_data):
+    return list(filter(lambda attempt_data: attempt_data['timestamp'], attempts_data))
 
 
-def get_midnighters(users_attempts_data):
+def get_midnighters(attempts_data):
     midnighters = defaultdict(list)
-    for user_data in users_attempts_data:
-        username = user_data['username']
-        user_timezone = pytz.timezone(user_data['timezone'])
-        attempt_time = datetime.datetime.fromtimestamp(user_data['timestamp'], user_timezone)
+    for attempt_data in attempts_data:
+        username = attempt_data['username']
+        user_timezone = pytz.timezone(attempt_data['timezone'])
+        attempt_time = datetime.datetime.fromtimestamp(attempt_data['timestamp'], user_timezone)
         if START_TIME <= attempt_time.time() <= END_TIME:
             midnighters[username].append(attempt_time)
     return midnighters
