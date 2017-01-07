@@ -23,7 +23,7 @@ def load_data(page):
     return records
 
 
-def get_all_users_records_with_timestamp_data(num_pages):
+def get_users_attempts(num_pages):
     for page in range(1, num_pages + 1):
         records = load_data(page)
         for record in records:
@@ -58,6 +58,6 @@ def print_midnighters(midnighters):
 
 if __name__ == '__main__':
     num_pages = get_number_of_pages()
-    users_attempts_data = get_all_users_records_with_timestamp_data(num_pages)
+    users_attempts_data = get_users_attempts(num_pages)
     midnighters = get_midnighters(users_attempts_data)
     print_midnighters(midnighters)
